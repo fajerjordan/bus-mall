@@ -1,59 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bus Mall</title>
-    <link rel="stylesheet" href="./css/style.css">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>BUS MALL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="./css/reset.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="./css/style.css" />
+
+
 </head>
+<header>
+
+
+</header>
+
 <body>
-    <header>
 
-       <h3>Welcome to Items Catalog Voting Poll</h3>
-       <br>
-       <p>Please vote to some products that shown bellow <br> for collect the choosen items to enhance our catalog.</p>
-       <br>
-       <br>
-       <div id="StyleForm">
-       <form id="RoundsNumberForm">
-           <br>
-           <label for="RoundsNumber"> Choosen Items Rounds Number </label>
-           <br>
-           <br>
-           <input type="number" id="RoundsNum" name="RoundsNum" />
-           <br>
-           <br>
-           <input type="submit" value="Submit" />
-           <br>
-           <br>
-       </form>
-       </div>
-    </header>
+  <section class="picturesSection">
 
-    <main>
-        <div id = "ItemsImagesDiv">
-            <br>
-            <img id="First" src="" alt="" width="200" height="200">
-            <img id="Second" src="" alt="" width="200" height="200">
-            <img id="Third" src="" alt="" width="200" height="200">
-            <br>
-        </div>
+    <img class="picturesSelection" id="picOne" src="" alt="picture first">
+    <img class="picturesSelection" id="picTwo" src="" alt="picture second">
+    <img class="picturesSelection" id="picThree" src="#" alt="picture third">
 
-        <div>
-            <br>
-            <button id="SubmitResult" type="submit" disabled> Submit Result </button>
-            <br>
-        </div>
-       
-        <ul id="ResultItemsList"></ul>
-    </main>
-    
+  </section>
+  <section class="radioSection">
 
-    <footer>
+    <input class="radioButtons" id="radioOne" type="radio" name="Product">
+    <input class="radioButtons" id="radioTwo" type="radio" name="Product">
+    <input class="radioButtons" id="radioThree" type="radio" name="Product">
 
-    </footer>
-    
-    <script src="./js/app.js"></script>
+  </section>
+
+  <section>
+    <button id="voteButton">Vote!</button>
+  </section>
+
+ 
+ 
+  <section class="resultsSection">
+    <h4>Total Votes:</h4>
+    <ul id="resultsList">
+
+    </ul>
+  </section>
 
 </body>
+
+<footer>
+  <script src="./js/app.js"></script>
+</footer>
+
 </html>
