@@ -1,149 +1,193 @@
-'strict'
+'use strict';
+
+
+var imgsArray = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.jpg', 'tauntaun.jpg', 'unicorn.jpg', 'usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
+var imgsObj = [];
+var previousImgIndexes = [undefined, undefined, undefined];
+var attempts = 25;
 
 
 
-var AllItemsImages = []
-var FirstImage = document.getElementById('First');
-var FirstImage = document.getElementById('Second');
-var FirstImage = document.getElementById('Third');
-var ItemImageDiv = document.getElementById('ItemImageDiv');
+/////////////////////CONSTRUCTOR FOR AN IMAGE OBJECT//////////////////////////////
 
-var DefultRoundsNuber = 25; 
-var TotalClicks = 0;
 
-var FirstImageIndex ;
-var SecondImageIndex ;
-var ThirdImageIndex ;
-
-function ItemImages(name,sourse){
-    this.name = name;
-    this.sourse = sourse;
-    this.ImagesClick = 0;
-    this.ImagesShown - 0;
-
-    AllItemsImages.push(this);
-}
-
-RoundsNumberForm.addEventListener('submit',AddRoundNum);
-
-function AddRoundNum(event)
+function ImageTracker(imgName)
 {
-    event.preventDefault();
-
-    defaultRoundNumber = parseInt(event.target.RoundNum.value) -1;
-    return DefultRoundsNuber;
-
+    // imagePath -> ./img/breakfast.jpg
+    this.name = imgName.split('.'[0]);
+    this.path = imgName;
+    this.totalClicks = 0;
+    this.views = 0;
 }
 
-new ItemImages('bag','img/bag.jpg');
-new ItemImages('banana', 'img/banana.jpg');
-new ItemImages('bathroom', 'img/bathroom.jpg');
-new ItemImages('boots', 'img/boots.jpg');
-new ItemImages('breakfast', 'img/breakfast.jpg');
-new ItemImages('bubblegum', 'img/bubblegum.jpg');
-new ItemImages('chair', 'img/chair.jpg');
-new ItemImages('cthulhu', 'img/cthulhu.jpg');
-new ItemImages('dog-duck', 'img/dog-duck.jpg');
-new ItemImages('dragon', 'img/dragon.jpg');
-new ItemImages('pen', 'img/pen.jpg');
-new ItemImages('pet-sweep', 'imgs/pet-sweep.jpg');
-new ItemImages('scissors', 'img/scissors.jpg');
-new ItemImages('shark', 'img/shark.jpg');
-new ItemImages('sweep', 'img/sweep.png');
-new ItemImages('tauntaun', 'img/tauntaun.jpg');
-new ItemImages('unicorn', 'img/unicorn.jpg');
-new ItemImages('usb', 'img/usb.gif');
-new ItemImages('water-can', 'img/water-can.jpg');
-new ItemImages('wine-glass', 'simg/wine-glass.jpg');
+/////////////////////DEFINING INTERACTIVE ELEMENTS ON A PAGE//////////////////////
 
 
-HTMLFormControlsCollection.log(AllItemsImages);
+// picture frames
 
-renderTreeRandomImages();
+var frameOne = document.getElementById('picOne');
+var frameTwo = document.getElementById('picTwo');
+var frameThree = document.getElementById('picThree');
 
-FirstImage.addEventListener('click',handleuserclick);
-Secondmage.addEventListener('click',handleuserclick);
-ThirdImage.addEventListener('click',handleuserclick);
+// radio buttons
 
-function generateRandomIndex(){
-    return Math.floor(Math.random()*(AllItemsImages.length));
-}
+var radioOne = document.getElementById('radioOne');
+var radioTwo = document.getElementById('radioTwo');
+var radioThree = document.getElementById('radioThree');
+var radioArr = [radioOne, radioTwo, radioThree];
 
-function renderTreeRandomImages()
+// vote button
+
+var vote = document.getElementById('voteButton');
+
+// section to print results
+
+var resultsList = document.getElementById('resultsList');
+
+// description section
+
+var description = document.getElementById('descriptionSection');
+
+
+
+
+////////////////////////////////FUNCTIONS DEFINITIONS/////////////////////////////
+
+
+// pick a random number from array indexes that doesn't equal to previous image
+function pickRandomNumber(arrayOfImages)
 {
-    FirstImageIndex = generateRandomIndex();
+    var rndNumber = Math.floor(Math.random() * Math.floor(arrayOfImages.length));
 
-    do{
-        SecondImageIndex = generateRandomIndex();
-        ThirdImageIndex = generateRandomIndex();
-    }
-
-    while (FirstImageIndex === SecondImageIndex || FirstImageIndex  === ThirdImageIndex || SecondImageIndex === ThirdImageIndex)
-    {
-        AllItemsImages[FirstImageIndex].ImagesShown++;
-        FirstImageIndex.src = AllItemsImages[FirstImageIndex].sourse;
-        AllItemsImages[SecondImageIndex].ImagesShow++;
-        SecondImageIndex.src = AllItemsImages[SecondImageIndex].sourse;
-        AllItemsImages[ThirdImageIndex].ImagesShown++;
-        ThirdImageIndex.src = AllItemsImages[ThirdImageIndex].sourse;
-    } 
-}
-
-
-
-
-function handleUserClick(event)
-{
     
-
-    if(TotalClicks <= DefaultRoundsNumber)
+    while (previousImgIndexes.includes(rndNumber)) 
     {
-        if(event.target.id === 'First'){
-            AllItemsImages[FirstImageIndex].ImagesClicks++;
-            TotalClicks++;
-          }
-        else if(event.target.id === 'Second'){
-            AllItemsImages[FirstImageIndex].ImagesClicks++;
-            TotalClicks++;
-        }
-        else if(event.target.id === 'Third'){
-                AllItemsImages[FirstImageIndex].ImagesClicks++;
-                TotalClicks++;
-        }
-
-        renderThreeRandomImages();
-
+        rndNumber = Math.floor(Math.random() * Math.floor(arrayOfImages.length));
     }
 
+    return rndNumber;
+}
+
+/**********************************************************************************/
+
+// display random pictures to a page
+function displayRandomPictures()
+{
+    // --------------randomize first picture-----------------
+    // find out random picture from array
+    var pictureIndexOne = pickRandomNumber(imgsArray);
+    // place it to a frame
+    frameOne.src = './img/' + imgsArray[pictureIndexOne];
+    // set a value of radio button as index of that image in our initial array
+    radioOne.setAttribute('value', pictureIndexOne);
+    // set value to prev indexes array, so when it will look it up it does not repeats
+    previousImgIndexes[0] = pictureIndexOne;
+    // add a view to that image object
+    imgsObj[pictureIndexOne].views++;
+    
+    // --------------randomize second picture-----------------
+    // find out random picture from array
+    var pictureIndexTwo = pickRandomNumber(imgsArray);
+    // place it to a frame
+    frameTwo.src = './img/' + imgsArray[pictureIndexTwo];
+    // set a value of radio button as index of that image in our initial array
+    radioTwo.setAttribute('value', pictureIndexTwo);
+    // set value to prev indexes array, so when it will look it up it does not repeats
+    previousImgIndexes[1] = pictureIndexTwo;
+    // add a view to that image object
+    imgsObj[pictureIndexTwo].views++;
+
+    // --------------randomize third picture-----------------
+    // find out random picture from array
+    var pictureIndexThree = pickRandomNumber(imgsArray);
+    // place it to a frame
+    frameThree.src = './img/' + imgsArray[pictureIndexThree];
+    // set a value of radio button as index of that image in our initial array
+    radioThree.setAttribute('value', pictureIndexThree);
+    // set value to prev indexes array, so when it will look it up it does not repeats
+    previousImgIndexes[2] = pictureIndexThree;
+    // add a view to that image object
+    imgsObj[pictureIndexThree].views++;
+}
+
+
+// what happens after 'vote' clicked
+var clicked = function()
+{
+    // add a total click count to a image
+    for (var radioBtn of radioArr)
+    {
+        if (radioBtn.checked)
+        {
+            // in image object with same index we increment a total click
+            imgsObj[radioBtn.value].totalClicks += 1;
+            // and jump out of loop
+            break;
+        }
+    }
+
+    // display random pictures
+    displayRandomPictures(imgsObj);
+
+    // check if attempts is gone
+    if (attempts === 0)
+    {
+        // display results
+        renderResults();
+
+        // make button disappear
+        vote.style.display = 'none';
+
+        // make description disappear
+        description.style.opacity = 0;
+    }
     else
     {
-        ItemsImagesDiv.removeEventListener('click' ,handleUserClick );
-        ResultButton.disabled = false;
-        
-    }
+        // decrement attempts
+        attempts--;
+    } 
+};
 
+// attaching event listener to a 'vote' button
+vote.addEventListener('click', clicked);
 
-}
+/**********************************************************************************/
 
-  var ResultButton = document.getElementById('SubmitResult');
-  ResultButton.addEventListener('click', GoalResult);
+// render result clicks from array of objects to a page
 
-function GoalResult()
+function renderResults()
 {
-    var ResultItemsList = document.getElementById('ResultItemsList');
-    var goalResult;
-    for (var i = 0; i < AllItemsImages.length; i++) {
-        
-        goalResult = document.createElement('li');
-        goalResult.textContent =  AllItemsImages[i].name + ' had '+  AllItemsImages[i].ImagesClicks + ' votes, and was seen ' + AllItemsImages[i].ImagesShown ;
-        ResultItemsList.appendChild(goalResult);
+    // while list has some list items - delete it
+    while (resultsList.firstChild) 
+    {
+        resultsList.removeChild(resultsList.firstChild);
     }
 
-
-    FirstImage.removeEventListener('click',handleUserClick);
-    SecondImage.removeEventListener('click',handleUserClick);
-    ThirdImage.removeEventListener('click',handleUserClick);
-
-    ResultButton.disabled = true;
+    // going through array of objects
+    for (var obj of imgsObj)
+    {
+        // create a list item node
+        var tmpNode = document.createElement('li');
+        // create a text node
+        var nameClicks = document.createTextNode(obj.name[0] + ': ' + obj.totalClicks);
+        // connect text node to list item
+        tmpNode.appendChild(nameClicks);
+        // connect list item to a results list
+        resultsList.appendChild(tmpNode);
+    }
 }
 
+
+///////////////////////////////////////ACTION/////////////////////////////////////
+
+// filling an objects array
+for( var i=0; i < imgsArray.length; i++) 
+{
+    imgsObj.push(new ImageTracker(imgsArray[i]));
+}
+
+// putting random pictures on a screen
+displayRandomPictures();
+
+//// rendering results for them
+// renderResults();

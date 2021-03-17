@@ -1,70 +1,76 @@
+*
+{
+    /* outline: solid 2px orange; */
+}
+
 body
 {
-    background-color: azure;
-}
-
-header
-{
-    border: 5px solid snow
-}
-
-h3, p
-{
-    display: inline-block;
-    color: rgb(10, 10, 10);
-    text-align: center;
-    width: 50%;
-    height: 50%;
-    margin-left: 25%;
-    font-size: large;
-}
-label
-{
-
-    margin-left: 25%;
-}
-
-label, input
-{
-    width: 50%;
-    height: 50%;
-    margin-left: 25%;
-    color: teal;
-    font-size: larger;
-    font: bold;
-    margin-bottom: 1%;
-
-}
-
-#ItemsImageDiv
-{
-    display: inline-block;
-    border: 5px solid snow;
-    margin-top: 5%;
-    margin-left: 27%;
-}
-
-#SubmitResult
-{
-    background-color: teal;
-    color: whitesmoke;
-    font-size: larger;
-    margin-left: 45%;
-    border: 5px solid whitesmoke;
+    font-family: 'Arvo', serif;
 }
 
 
-#ResultItemsList
-{
-    display: inline-block;
-    background-color: whitesmoke;
-    padding: 2%;
-    width: 50%;
-    height: 50%;
-    margin-left: 25%;
-    font: bold;
-    margin-bottom: 3%;
-    font-size: large;
-    list-style-type: none;
 
+.headerButtons
+{
+    margin-top: -3em;
+    margin-right: 3em;
+    float: right; 
+}
+
+button :headerButtons
+{
+    height: 20px;
+}
+
+.picturesSection
+{
+    margin-top: 3em;
+    margin-left: 30em;
+}
+.picturesSelection
+{
+    display: inline;
+    padding: 1em 1em 1em 1em;
+    height: 300px;
+    width: 300px;
+}
+
+#voteButton
+{
+    width: 70%;
+    margin-left: 20%;
+    padding: 1em 1em 1em 1em;
+    margin-top: 2em;
+}
+
+.radioSection
+{
+    margin-left: 30em;
+}
+
+
+.radioButtons
+{
+    margin-left: 11em;
+    margin-right: 11em;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.resultsSection
+{
+    font-size: 2em;
+    padding: 1em 1em 1em 1em;
+    margin-top: -10em;
+}
+
+#descriptionSection
+{
+    padding-left: 28em;
+    padding-right: 4em;
+    /* after results on a screen */
+    /* margin-top: -23em;  */
+
+    /* before results on a screen */
+    margin-top: 16em;
 }
